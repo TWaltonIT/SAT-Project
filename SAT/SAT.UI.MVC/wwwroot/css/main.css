@@ -56,6 +56,10 @@ h6 {
   font-family: var(--font-primary);
 }
 
+div.menu li {
+    list-style-type: none !important;
+}
+
 /*--------------------------------------------------------------
 # Sections & Section Header
 --------------------------------------------------------------*/

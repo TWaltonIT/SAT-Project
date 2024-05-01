@@ -18,15 +18,15 @@ namespace SAT.UI.MVC.Controllers
 			return View();
 		}
 
-		public IActionResult Contact()
-		{
-			return View();
-		}
+		//public IActionResult Contact()
+		//{
+		//	return View();
+		//}
 
-		public IActionResult CourseInfo()
-		{
-			return View();
-		}
+		//public IActionResult CourseInfo()
+		//{
+		//	return View();
+		//}
 
 		public IActionResult Privacy()
 		{
