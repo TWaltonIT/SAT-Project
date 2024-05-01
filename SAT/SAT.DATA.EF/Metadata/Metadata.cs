@@ -78,6 +78,8 @@ namespace SAT.DATA.EF.Models
         [Required]
         [StringLength(20)]
         public string Location { get; set; } = null!;
+
+        [Display(Name = "Class Status")]
         public int SCSID { get; set; }
     }
 
