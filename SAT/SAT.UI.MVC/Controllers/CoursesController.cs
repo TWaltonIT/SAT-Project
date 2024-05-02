@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -81,24 +82,56 @@ namespace SAT.UI.MVC.Controllers
             return Json(course);
         }
 
-        //ajax edit
-        [HttpGet]
-        public PartialViewResult CourseEdit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            Course course = _context.Courses.Find(id);
-            return PartialView(course);
+            if (id == null || _context.Courses == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses.FindAsync(id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+            return View(course);
         }
+
         // POST: Courses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult AjaxEdit(Course course)
+        public async Task<IActionResult> Edit(int id, [Bind("CourseId,CourseName,CourseDescription,CreditHours,Curriculum,Notes,IsActive")] Course course)
         {
-            _context.Update(course);
-            _context.SaveChanges();
-            return Json(course);
+            if (id != course.CourseId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(course);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CourseExists(course.CourseId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(course);
         }
+
 
         // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int? id)

@@ -42,7 +42,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.Curriculum)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Notes)</td>
                                     <td>
-                                        <a class="EditLink" id="@item.CourseId"><i class="fa fa-solid fa-pencil"></i>Edit</a> 
+                                        <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> |
                                         <button type="button" class="DetailsLink btn btn-link btn-success" id="@item.CourseId" data-bs-toggle="modal" data-bs-target="#CourseDetails">
                                             Details
                                         </button>
@@ -89,72 +89,8 @@
         });
 
         $("#CourseCreate").hide();
-        $("#ToggleCourseCreate").on("click", function () {
+        $("#ToggleCourseCreate").on("click", function (e) {
             $("#CourseCreate").toggle();
-        });
-
-        let originalContent = null;
-        $("a.EditLink").on("click", function (e) {
-            e.preventDefault();
-            let courseId = $(this).attr("id");
-            let row = $("#Course-" + courseId).children();
-            originalContent = {
-                CourseId = courseId,
-                CourseName = row[0].innerText,
-                CourseDescription = row[1].innerText,
-                CreditHours = row[2].innerText,
-                Curriculum = row[3].innerText,
-                Notes = row[4].innerText,
-                IsActive = row[5].innerText
-            };
-
-            $.get("/Courses/CourseEdit/" + courseId, function (data) {
-                $("#Course-" + courseId).replaceWith(`<tr id="Course-${courseId}">${data}</tr>`)
-            });
-        });
-
-        $(document).on("click", "#saveUpdate", function () {
-            let formData = $("#CourseEditForm").serializeArray();
-            console.log(formData);
-            $("#MessageContent").html("<div class='alert alert-info'>Processing changes...</div>");
-
-            $.ajax({
-                url: "/Courses/AjaxEdit",
-                type: "POST",
-                data: formData,
-                dataType: "json",
-                error: function (e) {
-                    $("#MessageContent").html("<div class='alert alert-danger'>There was an error processing your changes. Please try again. If the error persists, please contact the site administrator.</div>");
-                    $(function () {
-                        let row = `<tr>
-                                    <td>${originalContent.CourseName}</td>
-                                    <td>${originalContent.CourseDescription}</td>
-                                    <td>${originalContent.CreditHours}</td>
-                                    <td>${originalContent.Curriculum}</td>
-                                    <td>${originalContent.Notes}</td>
-                                    <td>${originalContent.IsActive}</td>
-                                    <td>Refresh to view options</td>
-                                </tr>`
-                        $("#Course-" + data.courseId).replaceWith(row);
-                    });
-                },
-                success: function (data) {
-                    $("#MessageContent").html("<div class='alert alert-success'>Your record was successfully updated!</div>");
-                    $("#CourseEditForm")[0].reset();
-                    $(function () {
-                        let row = `<tr>
-                                        <td>${data.CourseName}</td>
-                                        <td>${data.CourseDescription}</td>
-                                        <td>${data.CreditHours}</td>
-                                        <td>${data.Curriculum}</td>
-                                        <td>${data.Notes}</td>
-                                        <td>${data.IsActive}</td>
-                                    </tr>`
-                        $("#Course-" + data.courseId).replaceWith(row);
-                    });
-                }
-
-            });
         });
     </script>
 }

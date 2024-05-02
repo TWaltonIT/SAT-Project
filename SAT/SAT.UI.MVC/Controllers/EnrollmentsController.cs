@@ -22,7 +22,7 @@ namespace SAT.UI.MVC.Controllers
         // GET: Enrollments
         public async Task<IActionResult> Index()
         {
-            var sATContext = _context.Enrollments.Include(e => e.ScheduledClass).Include(e => e.Student);
+            var sATContext = _context.Enrollments.Include(e => e.ScheduledClass).Include(e => e.Student).Include(e => e.ScheduledClass.Course);
             return View(await sATContext.ToListAsync());
         }
 
@@ -59,24 +59,18 @@ namespace SAT.UI.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult EnrollmentCreate(Enrollment enrollment)
+        public async Task<IActionResult> Create([Bind("EnrollmentId,StudentId,ScheduledClassId,EnrollmentDate")] Enrollment enrollment)
         {
-            _context.Enrollments.Add(enrollment);
-            _context.SaveChanges();
-            return Json(enrollment);
+            if (ModelState.IsValid)
+            {
+                _context.Add(enrollment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ScheduledClassId"] = new SelectList(_context.ScheduledClasses, "ScheduledClassId", "InstructorName", enrollment.ScheduledClassId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Email", enrollment.StudentId);
+            return View(enrollment);
         }
-        //public async Task<IActionResult> Create([Bind("EnrollmentId,StudentId,ScheduledClassId,EnrollmentDate")] Enrollment enrollment)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(enrollment);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ScheduledClassId"] = new SelectList(_context.ScheduledClasses, "ScheduledClassId", "InstructorName", enrollment.ScheduledClassId);
-        //    ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "Email", enrollment.StudentId);
-        //    return View(enrollment);
-        //}
 
         // GET: Enrollments/Edit/5
         public async Task<IActionResult> Edit(int? id)
