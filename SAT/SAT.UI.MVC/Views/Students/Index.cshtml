@@ -19,61 +19,30 @@
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
                         <thead>
                             <tr class="text-white">
-                                <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Invoice</th>
-                                <th scope="col">Customer</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Ss.Ssid)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.StudentId)</th>
+                                <th scope="col">Student Name</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Major)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach (var item in Model) 
+                            {
                             <tr>
-                                <td><input class="form-check-input" type="checkbox"></td>
-                                <td>01 Jan 2045</td>
-                                <td>INV-0123</td>
-                                <td>Jhon Doe</td>
-                                <td>$123</td>
-                                <td>Paid</td>
-                                <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-check-input" type="checkbox"></td>
-                                <td>01 Jan 2045</td>
-                                <td>INV-0123</td>
-                                <td>Jhon Doe</td>
-                                <td>$123</td>
-                                <td>Paid</td>
-                                <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-check-input" type="checkbox"></td>
-                                <td>01 Jan 2045</td>
-                                <td>INV-0123</td>
-                                <td>Jhon Doe</td>
-                                <td>$123</td>
-                                <td>Paid</td>
-                                <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-check-input" type="checkbox"></td>
-                                <td>01 Jan 2045</td>
-                                <td>INV-0123</td>
-                                <td>Jhon Doe</td>
-                                <td>$123</td>
-                                <td>Paid</td>
-                                <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-check-input" type="checkbox"></td>
-                                <td>01 Jan 2045</td>
-                                <td>INV-0123</td>
-                                <td>Jhon Doe</td>
-                                <td>$123</td>
-                                <td>Paid</td>
-                                <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                            </tr>
+                                <td>@Html.DisplayFor(modelItem => item.Ss.Ssname)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Major)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
+                                    <button type="button" class="DetailsLink btn btn-link btn-success" id="@item.StudentId" data-bs-toggle="modal" data-bs-target="#StudentDetails">
+                                        Details
+                                    </button>
+                                    <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                                </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -83,3 +52,26 @@
     </div>
 </div>
 <!-- Blank End -->
+
+<div class="modal fade" id="StudentDetails" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+            </div>
+            <div class="modal-body" id="DetailsBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+    $(".DetailsLink").on("click", function (e) {
+            let StudentId = $(this).attr("id");
+            $("#DetailsBody").load("/Students/StudentDetails/" + StudentId);
+        });
+    </script>
+}

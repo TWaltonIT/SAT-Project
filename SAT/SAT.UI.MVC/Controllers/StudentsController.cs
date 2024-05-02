@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,53 +20,72 @@ namespace SAT.UI.MVC.Controllers
         }
 
         // GET: Students
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var sATContext = _context.Students.Include(s => s.Ss);
+            var sATContext = 
+            _context.Students.Include(s => s.Ss);
+
             return View(await sATContext.ToListAsync());
         }
 
         // GET: Students/Details/5
-        public async Task<IActionResult> Details(int? id)
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null || _context.Students == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var student = await _context.Students
+        //        .Include(s => s.Ss)
+        //        .FirstOrDefaultAsync(m => m.StudentId == id);
+        //    if (student == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(student);
+        //}
+
+        public PartialViewResult StudentDetails(int id)
         {
-            if (id == null || _context.Students == null)
-            {
-                return NotFound();
-            }
-
-            var student = await _context.Students
-                .Include(s => s.Ss)
-                .FirstOrDefaultAsync(m => m.StudentId == id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            return View(student);
+            var student = _context.Students.Find(id);
+            return PartialView(student);
         }
 
         // GET: Students/Create
-        public IActionResult Create()
-        {
-            ViewData["Ssid"] = new SelectList(_context.StudentStatuses, "Ssid", "Ssname");
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    ViewData["Ssid"] = new SelectList(_context.StudentStatuses, "Ssid", "Ssname");
+        //    return View();
+        //}
 
         // POST: Students/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        //public async Task<IActionResult> Create([Bind("StudentId,FirstName,LastName,Major,Address,City,State,Zip,Phone,Email,PhotoUrl,Ssid")] Student student)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(student);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["Ssid"] = new SelectList(_context.StudentStatuses, "Ssid", "Ssname", student.Ssid);
+        //    return View(student);
+        //}
+        //
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,FirstName,LastName,Major,Address,City,State,Zip,Phone,Email,PhotoUrl,Ssid")] Student student)
+        public JsonResult StudentCreate(Student student)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(student);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["Ssid"] = new SelectList(_context.StudentStatuses, "Ssid", "Ssname", student.Ssid);
-            return View(student);
+            _context.Students.Add(student);
+            _context.SaveChanges();
+
+            return Json(student);
         }
 
         // GET: Students/Edit/5

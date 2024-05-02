@@ -123,6 +123,7 @@ namespace SAT.DATA.EF.Models
         [StringLength(100)]
         public string? PhotoUrl { get; set; }
 
+        [Display(Name = "Student Status")]
         public int SSID { get; set; }
     }
 
