@@ -13,7 +13,9 @@
             <div class="bg-secondary text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Students</h6>
-                    <a href="">Show All</a>
+                    <button type="button" id="ToggleStudentCreate" class="CreateLink btn btn-link pl-4">
+                        <i class="fa fa-solid fa-user-plus"></i>&nbsp;Add New Student
+                    </button>
                 </div>
                 <div class="table-responsive">
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -27,30 +29,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model) 
+                            @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Ss.Ssname)</td>
-                                <td>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Major)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                                    <button type="button" class="DetailsLink btn btn-link btn-success" id="@item.StudentId" data-bs-toggle="modal" data-bs-target="#StudentDetails">
-                                        Details
-                                    </button>
-                                    <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
-                                </td>
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Ss.Ssname)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Major)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                    <td>
+                                        @* <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> | *@
+                                        <button type="button" class="DetailsLink btn btn-link btn-success" id="@item.StudentId" data-bs-toggle="modal" data-bs-target="#StudentDetails">
+                                            Details
+                                        </button>
+                                        <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
+                </div>
+                <div id="StudentCreate">
+                    <partial name="StudentCreate" model="new SAT.DATA.EF.Models.Student()" />
                 </div>
             </div>
         </div>
         <!-- Recent Sales End -->
     </div>
 </div>
+
 <!-- Blank End -->
 
 <div class="modal fade" id="StudentDetails" tabindex="-1" aria-hidden="true">
@@ -69,9 +75,14 @@
 
 @section scripts {
     <script>
-    $(".DetailsLink").on("click", function (e) {
+        $(".DetailsLink").on("click", function (e) {
             let StudentId = $(this).attr("id");
             $("#DetailsBody").load("/Students/StudentDetails/" + StudentId);
+        });
+
+        $("#StudentCreate").hide();
+        $("#ToggleStudentCreate").on("click", function () {
+            $("#StudentCreate").toggle();
         });
     </script>
 }
