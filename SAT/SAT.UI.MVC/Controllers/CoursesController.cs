@@ -26,23 +26,29 @@ namespace SAT.UI.MVC.Controllers
                           Problem("Entity set 'SATContext.Courses'  is null.");
         }
 
-        // GET: Courses/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public PartialViewResult CourseDetails(int id)
         {
-            if (id == null || _context.Courses == null)
-            {
-                return NotFound();
-            }
+            var course = _context.Courses.Find(id);
+            return PartialView(course);
+        } 
 
-            var course = await _context.Courses
-                .FirstOrDefaultAsync(m => m.CourseId == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
+        // GET: Courses/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null || _context.Courses == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(course);
-        }
+        //    var course = await _context.Courses
+        //        .FirstOrDefaultAsync(m => m.CourseId == id);
+        //    if (course == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(course);
+        //}
 
         // GET: Courses/Create
         public IActionResult Create()

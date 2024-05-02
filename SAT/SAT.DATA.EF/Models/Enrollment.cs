@@ -12,5 +12,6 @@ namespace SAT.DATA.EF.Models
 
         public virtual ScheduledClass ScheduledClass { get; set; } = null!;
         public virtual Student Student { get; set; } = null!;
+        public virtual Course Course { get; set; } = null!;
     }
 }

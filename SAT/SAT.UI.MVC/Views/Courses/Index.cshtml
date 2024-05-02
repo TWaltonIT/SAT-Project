@@ -21,10 +21,9 @@
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
                         <thead>
                             <tr class="text-white">
-                                <th scope="col"><input type="checkbox" checked="@Html.DisplayNameFor(model => model.IsActive)" /></th>
+                                <th scope="col"><input type="checkbox"/></th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.CourseId)</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.CourseName)</th>
-                                <th scope="col">Course Name</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.CourseDescription)</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.CreditHours)</th>
                                 <th scope="col">@Html.DisplayNameFor(model => model.Curriculum)</th>
@@ -35,7 +34,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td><input type="checkbox" checked="@Html.DisplayFor(modelItem => item.IsActive)" /></td>
+                                    <td><input type="checkbox" id="@item.CourseId" checked="@item.IsActive" /></td>
                                     <td>@Html.DisplayFor(modelItem => item.CourseId)</td>
                                     <td>@Html.DisplayFor(modelItem => item.CourseName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.CourseDescription)</td>
@@ -43,7 +42,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.Curriculum)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Notes)</td>
                                     <td>
-                                        @* <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> | *@
+                                        <a asp-action="Edit" asp-route-id="@item.CourseId"><i class="fa fa-solid fa-pencil"></i></a> 
                                         <button type="button" class="DetailsLink btn btn-link btn-success" id="@item.CourseId" data-bs-toggle="modal" data-bs-target="#CourseDetails">
                                             Details
                                         </button>
@@ -53,8 +52,12 @@
                             }
                         </tbody>
                     </table>
+                    <br />
+                    <br />
+                    
                 </div>
                 <div id="CourseCreate">
+                
                     <partial name="CourseCreate" model="new SAT.DATA.EF.Models.Course()" />
                 </div>
             </div>
@@ -67,7 +70,7 @@
 
 <div class="modal fade" id="CourseDetails" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-dark">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Details</h5>
             </div>
