@@ -61,31 +61,22 @@ namespace SAT.UI.MVC.Controllers
         //    return View();
         //}
 
-        // POST: Students/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        
-        //public async Task<IActionResult> Create([Bind("StudentId,FirstName,LastName,Major,Address,City,State,Zip,Phone,Email,PhotoUrl,Ssid")] Student student)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(student);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["Ssid"] = new SelectList(_context.StudentStatuses, "Ssid", "Ssname", student.Ssid);
-        //    return View(student);
-        //}
-        //
-        
+        //POST: Students/Create
+        //To protect from overposting attacks, enable the specific properties you want to bind to.
+        //For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult StudentCreate(Student student)
+        public async Task<IActionResult> Create([Bind("StudentId,FirstName,LastName,Major,Address,City,State,Zip,Phone,Email,PhotoUrl,Ssid")] Student student)
         {
-            _context.Students.Add(student);
-            _context.SaveChanges();
-
-            return Json(student);
+            if (ModelState.IsValid)
+            {
+                _context.Add(student);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Ssid"] = new SelectList(_context.StudentStatuses, "Ssid", "Ssname", student.Ssid);
+            return View(student);
         }
 
         // GET: Students/Edit/5

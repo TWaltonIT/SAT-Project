@@ -53,17 +53,26 @@ namespace SAT.UI.MVC.Controllers
         // POST: Courses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        //public async Task<IActionResult> Create([Bind("CourseId,CourseName,CourseDescription,CreditHours,Curriculum,Notes,IsActive")] Course course)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(course);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(course);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseId,CourseName,CourseDescription,CreditHours,Curriculum,Notes,IsActive")] Course course)
+        public JsonResult CourseCreate(Course course)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(course);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(course);
+            _context.Courses.Add(course);
+            _context.SaveChanges();
+
+            return Json(course);
         }
 
         // GET: Courses/Edit/5
