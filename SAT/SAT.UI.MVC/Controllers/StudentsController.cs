@@ -54,12 +54,12 @@ namespace SAT.UI.MVC.Controllers
             return PartialView(student);
         }
 
-        // GET: Students/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["Ssid"] = new SelectList(_context.StudentStatuses, "Ssid", "Ssname");
-        //    return View();
-        //}
+        //GET: Students/Create
+        public IActionResult Create()
+        {
+            ViewData["Ssid"] = new SelectList(_context.StudentStatuses, "Ssid", "Ssname");
+            return View();
+        }
 
         //POST: Students/Create
         //To protect from overposting attacks, enable the specific properties you want to bind to.
