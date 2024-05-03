@@ -66,6 +66,11 @@
                         <li><a href="@Url.Action("Index", "Home")" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Home</a></li>
                         <li><a href="@Url.Action("Index", "Enrollments")" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Enrollment</a></li>
                         <li><a href="@Url.Action("Index", "Courses")" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Courses</a></li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                        <li><a href="@Url.Action("Index", "ScheduledClasses")" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Classes</a></li>
+                        }
+
                     </ul>
                     @* @if (User.IsInRole("Admin"))
                     { *@
@@ -85,12 +90,6 @@
                             @* <a href="~/signin.html" class="dropdown-item">Sign In</a>
                             <a href="~/signup.html" class="dropdown-item">Sign Up</a> *@
                             <partial name="_LoginPartial" />
-
-                            <a href="~/404.html" class="dropdown-item">404 Error</a>
-                            @if (signInManager.IsSignedIn(User))
-                            {
-                                <a href="@Url.Action("Index", "ScheduledClasses")" class="dropdown-item">Scheduled Classes</a>
-                            }
                         </div>
                     </div>
                 </div>

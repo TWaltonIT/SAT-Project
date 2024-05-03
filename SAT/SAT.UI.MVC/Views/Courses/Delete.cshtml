@@ -4,40 +4,50 @@
     ViewData["Title"] = "Delete";
 }
 
-<h3 class="alert alert-danger">Are you sure you want to delete @Model.CourseName?</h3>
-<div>
-    <div class="row">
-        <div class="col-md-6 offset-md-2">
-            <p class="h3">
-                <strong>@Html.DisplayNameFor(model => model.CourseName):</strong>
-                @Html.DisplayFor(model => model.CourseName)
-            </p>
-            <p class="h3">
-                <strong>@Html.DisplayNameFor(model => model.CourseDescription):</strong>
-                @Html.DisplayFor(model => model.CourseDescription)
-            </p>
-            <p class="h3">
-                <strong>@Html.DisplayNameFor(model => model.CreditHours):</strong>
-                @Html.DisplayFor(model => model.CreditHours)
-            </p>
-            <p class="h3">
-                <strong>@Html.DisplayNameFor(model => model.Curriculum):</strong>
-                @Html.DisplayFor(model => model.Curriculum)
-            </p>
-            <p class="h3">
-                <strong>@Html.DisplayNameFor(model => model.Notes):</strong>
-                @Html.DisplayFor(model => model.Notes)
-            </p>
-            <p class="h3">
-                <strong>@Html.DisplayNameFor(model => model.IsActive):</strong>
-                @Html.DisplayFor(model => model.IsActive)
-            </p>
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="CourseId" />
-                <input type="submit" value="Delete" class="btn btn-danger" /> |
-                <a asp-action="Index">Back to List</a>
-            </form>
+<div class="container-fluid">
+    <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Remove @Html.DisplayFor(model => model.CourseName)?</h3>
+                </div>
+                <div>
+                    <p class="h3">
+                        <strong>@Html.DisplayNameFor(model => model.CourseName):</strong>
+                        @Html.DisplayFor(model => model.CourseName)
+                    </p>
+                    <p class="h3">
+                        <strong>@Html.DisplayNameFor(model => model.CourseDescription):</strong>
+                        @Html.DisplayFor(model => model.CourseDescription)
+                    </p>
+                    <p class="h3">
+                        <strong>@Html.DisplayNameFor(model => model.CreditHours):</strong>
+                        @Html.DisplayFor(model => model.CreditHours)
+                    </p>
+                    <p class="h3">
+                        <strong>@Html.DisplayNameFor(model => model.Curriculum):</strong>
+                        @Html.DisplayFor(model => model.Curriculum)
+                    </p>
+                    <p class="h3">
+                        <strong>@Html.DisplayNameFor(model => model.Notes):</strong>
+                        @Html.DisplayFor(model => model.Notes)
+                    </p>
+                    <p class="h3">
+                        <strong>@Html.DisplayNameFor(model => model.IsActive):</strong>
+                        @Html.DisplayFor(model => model.IsActive)
+                    </p>
+                </div>
+                <form asp-action="Delete">
+
+                    <div class="form-floating my-3">
+                        <div class="row">
+                            <input type="hidden" asp-for="CourseId" />
+                            <div class="col-md-4 offset-md-3"><input type="submit" value="Delete" class="btn btn-danger" /></div>
+                            <div class="col-md-4"><a asp-action="Index" class="btn btn-secondary">Cancel</a></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-
 </div>

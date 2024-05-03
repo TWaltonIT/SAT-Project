@@ -11,51 +11,53 @@
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Edit Scheduled Class</h3>
                 </div>
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ScheduledClassId" />
-            <div class="form-floating mb-3">
-                <label asp-for="CourseId" class="control-label"></label>
-                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
-                <span asp-validation-for="CourseId" class="text-danger"></span>
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ScheduledClassId" />
+                    <div class="form-floating mb-3">
+                        <label asp-for="CourseId" class="control-label"></label>
+                        <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                        <span asp-validation-for="CourseId" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="InstructorName" class="control-label"></label>
+                        <input asp-for="InstructorName" class="form-control" />
+                        <span asp-validation-for="InstructorName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Location" class="control-label"></label>
+                        <input asp-for="Location" class="form-control" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Scsid" class="control-label"></label>
+                        <select asp-for="Scsid" class="form-control" asp-items="ViewBag.Scsid"></select>
+                        <span asp-validation-for="Scsid" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <div class="row">
+                            <div class="col-md-4 offset-md-3"><input type="submit" value="Save" class="btn btn-primary" /></div>
+                            <div class="col-md-4"><a asp-action="Index" class="btn btn-secondary">Cancel</a></div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-floating mb-3">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <label asp-for="InstructorName" class="control-label"></label>
-                <input asp-for="InstructorName" class="form-control" />
-                <span asp-validation-for="InstructorName" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <label asp-for="Scsid" class="control-label"></label>
-                <select asp-for="Scsid" class="form-control" asp-items="ViewBag.Scsid"></select>
-                <span asp-validation-for="Scsid" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-    </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

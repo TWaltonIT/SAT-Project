@@ -27,24 +27,24 @@ namespace SAT.UI.MVC.Controllers
         }
 
         // GET: Enrollments/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Enrollments == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null || _context.Enrollments == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var enrollment = await _context.Enrollments
-                .Include(e => e.ScheduledClass)
-                .Include(e => e.Student)
-                .FirstOrDefaultAsync(m => m.EnrollmentId == id);
-            if (enrollment == null)
-            {
-                return NotFound();
-            }
+        //    var enrollment = await _context.Enrollments
+        //        .Include(e => e.ScheduledClass)
+        //        .Include(e => e.Student)
+        //        .FirstOrDefaultAsync(m => m.EnrollmentId == id);
+        //    if (enrollment == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(enrollment);
-        }
+        //    return View(enrollment);
+        //}
 
         // GET: Enrollments/Create
         public IActionResult Create()

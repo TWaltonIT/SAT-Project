@@ -7,38 +7,53 @@
 <!-- Blank Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">Scheduled Classes</h6>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Course.CourseName)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.StartDate)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.EndDate)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.InstructorName)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Location)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Scsid)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-
+        <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Courses</h6>
+                    <button type="button" id="ToggleCourseCreate" class="CreateLink btn btn-link pl-4">
+                        <i class="fa fa-solid fa-user-plus"></i>&nbsp;Add New Class To Schedule
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
                             <tr>
-                                <th scope="row">@Html.DisplayFor(modelItem => item.Course.CourseName)</th>
-                                <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
-                                <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
-                                <td>@Html.DisplayFor(modelItem => item.InstructorName)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Location)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Scsid)</td>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Course.CourseName)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.StartDate)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.EndDate)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.InstructorName)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Location)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Scsid)</th>
+                                <th></th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
 
-                        }
-                    </tbody>
-                </table>
+                                <tr>
+                                    <td scope="row">@Html.DisplayFor(modelItem => item.Course.CourseName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.InstructorName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Scsid)</td>
+
+                                    <td><a asp-action="Edit" asp-route-id="@item.ScheduledClassId">Edit</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.ScheduledClassId">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+
+                </div>
             </div>
         </div>
+        <!-- Recent Sales End -->
     </div>
 </div>
-<!-- Blank End -->

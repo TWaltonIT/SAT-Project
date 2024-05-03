@@ -29,9 +29,7 @@
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Enrollments</h6>
-                        <button type="button" id="ToggleEnrollmentCreate" class="CreateLink btn btn-link pl-4">
-                            <i class="fa fa-solid fa-user-plus"></i>&nbsp;Enroll New Student
-                        </button>
+                        <a asp-action="Create" class="btn btn-link pl-4">Enroll New Student</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -57,9 +55,6 @@
                                         <td>@Html.DisplayFor(modelItem => item.ScheduledClass.EndDate)</td>
                                         <td>
                                             <a asp-action="Edit" asp-route-id="@item.EnrollmentId">Edit</a> |
-                                            <button type="button" class="DetailsLink btn btn-link btn-success" id="@item.EnrollmentId" data-bs-toggle="modal" data-bs-target="#EnrollmentDetails">
-                                                Details
-                                            </button>
                                             <a asp-action="Delete" asp-route-id="@item.EnrollmentId">Delete</a>
                                         </td>
                                     </tr>
@@ -69,9 +64,6 @@
                         <br />
                         <br />
 
-                    </div>
-                    <div id="EnrollmentCreate">
-                        <partial name="EnrollmentCreate" model="new SAT.DATA.EF.Models.Enrollment()" />
                     </div>
                 </div>
             </div>
@@ -89,33 +81,4 @@
         </div>
     </div> *@
 </div>
-
-
-<div class="modal fade" id="EnrollmentDetails" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content bg-dark">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Details</h5>
-            </div>
-            <div class="modal-body" id="DetailsBody"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section scripts {
-    <script>
-        $(".DetailsLink").on("click", function (e) {
-            let EnrollmentId = $(this).attr("id");
-            $("#DetailsBody").load("/Enrollments/EnrollmentDetails/" + EnrollmentId);
-        });
-
-        $("#EnrollmentCreate").hide();
-        $("#ToggleEnrollmentCreate").on("click", function () {
-            $("#EnrollmentCreate").toggle();
-        });
-    </script>
-}
 
