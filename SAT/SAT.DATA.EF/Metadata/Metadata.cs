@@ -49,7 +49,7 @@ namespace SAT.DATA.EF.Models
 
         [Required]
         [Display(Name = "Enrollment Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Range(typeof(DateTime), "01/01/2024", "06/01/2024", ErrorMessage = "You can only enroll between Jan 1 2024 and June 1 2024")]
         public DateTime EnrollmentDate { get; set; }
 
