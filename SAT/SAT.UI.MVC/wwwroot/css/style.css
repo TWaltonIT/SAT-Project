@@ -76,11 +76,16 @@
     z-index: 999;
 }
 
-.content {
+.content#backgroundimage {
     background-image: url(../img/saobg.png) !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
     margin-left: 250px;
     min-height: 100vh;
-    background: var(--dark);
+    /*background: var(--dark);*/
     transition: 0.5s;
 }
 

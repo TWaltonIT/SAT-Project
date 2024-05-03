@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SAT.DATA.EF.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SAT.UI.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CoursesController : Controller
     {
         private readonly SATContext _context;
@@ -20,6 +22,7 @@ namespace SAT.UI.MVC.Controllers
         }
 
         // GET: Courses
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
               return _context.Courses != null ? 
@@ -27,6 +30,7 @@ namespace SAT.UI.MVC.Controllers
                           Problem("Entity set 'SATContext.Courses'  is null.");
         }
 
+        [AllowAnonymous]
         public PartialViewResult CourseDetails(int id)
         {
             var course = _context.Courses.Find(id);

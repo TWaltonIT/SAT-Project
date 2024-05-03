@@ -21,55 +21,67 @@
         </div>
     </div>
     <!-- Sale & Revenue End -->
-
-            <!-- Recent Sales Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Enrollments</h6>
-                        <a asp-action="Create" class="btn btn-link pl-4">Enroll New Student</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-white">
-                                    <th scope="col">@Html.DisplayNameFor(model => model.Student)</th>
-                                    <th scope="col">@Html.DisplayNameFor(model => model.EnrollmentDate)</th>
-                                    <th scope="col">@Html.DisplayNameFor(model => model.ScheduledClass.Course.CourseName)</th>
-                                    <th scope="col">@Html.DisplayNameFor(model => model.ScheduledClass.InstructorName)</th>
-                                    <th scope="col">@Html.DisplayNameFor(model => model.ScheduledClass.StartDate)</th>
-                                    <th scope="col">@Html.DisplayNameFor(model => model.ScheduledClass.EndDate)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Student.FirstName) @Html.DisplayFor(modelItem => item.Student.LastName) </td>
-                                        <td>@Html.DisplayFor(modelItem => item.EnrollmentDate)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.ScheduledClass.Course.CourseName)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.ScheduledClass.InstructorName)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.ScheduledClass.StartDate)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.ScheduledClass.EndDate)</td>
-                                        <td>
-                                            <a asp-action="Edit" asp-route-id="@item.EnrollmentId">Edit</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.EnrollmentId">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        <br />
-                        <br />
-
-                    </div>
-                </div>
+    <!-- Recent Sales Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h6 class="mb-0">Enrollments</h6>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Create" class="btn btn-link pl-4">Enroll New Student</a>
+                }
+                
             </div>
-            <!-- Recent Sales End -->
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-white">
+                            <th scope="col">@Html.DisplayNameFor(model => model.Student)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.EnrollmentDate)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.ScheduledClass.Course.CourseName)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.ScheduledClass.InstructorName)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.ScheduledClass.StartDate)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.ScheduledClass.EndDate)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Student.FirstName) @Html.DisplayFor(modelItem => item.Student.LastName) </td>
+                                <td>@Html.DisplayFor(modelItem => item.EnrollmentDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ScheduledClass.Course.CourseName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ScheduledClass.InstructorName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ScheduledClass.StartDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ScheduledClass.EndDate)</td>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.EnrollmentId">Edit</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.EnrollmentId">Delete</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <br />
+
+            </div>
         </div>
     </div>
+    <!-- Recent Sales End -->
+</div>
+    </div>
 
-    @* <div class="col-sm-12 col-md-6 col-xl-4">
+@* <div class="col-sm-12 col-md-6 col-xl-4">
         <div class="h-100 bg-secondary rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <h6 class="mb-0">Calendar</h6>

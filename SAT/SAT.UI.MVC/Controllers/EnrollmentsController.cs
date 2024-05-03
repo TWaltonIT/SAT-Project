@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using SAT.DATA.EF.Models;
 
 namespace SAT.UI.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EnrollmentsController : Controller
     {
         private readonly SATContext _context;
@@ -20,6 +22,7 @@ namespace SAT.UI.MVC.Controllers
         }
 
         // GET: Enrollments
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var sATContext = _context.Enrollments.Include(e => e.ScheduledClass).Include(e => e.Student).Include(e => e.ScheduledClass.Course);

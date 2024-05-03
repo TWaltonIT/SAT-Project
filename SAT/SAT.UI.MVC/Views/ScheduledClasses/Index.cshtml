@@ -12,7 +12,10 @@
             <div class="bg-secondary text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Class Schedule</h6>
-                    <a asp-action="Create" class="btn btn-link pl-4">Add Class to Schedule</a>
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Create" class="btn btn-link pl-4">Add Class to Schedule</a>
+                    }
                 </div>
                 <div class="table-responsive">
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -38,10 +41,18 @@
                                     <td>@Html.DisplayFor(modelItem => item.InstructorName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Location)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Scsid)</td>
-
-                                    <td><a asp-action="Edit" asp-route-id="@item.ScheduledClassId">Edit</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.ScheduledClassId">Delete</a>
-                                    </td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.ScheduledClassId">Edit</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.ScheduledClassId">Delete</a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    
                                 </tr>
                             }
                         </tbody>
