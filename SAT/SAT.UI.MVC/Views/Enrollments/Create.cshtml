@@ -14,12 +14,16 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-floating mb-3">
-                        <p class="mb-0"><label asp-for="StudentId" class="control-label"></label></p>
-                        <input asp-for="StudentId" class="form-control"/>
+                        <p class="mb-0"><label asp-for="Student.FirstName" class="control-label"></label></p>
+                        <input asp-for="Student.FirstName" class="form-control"/>
                     </div>
                     <div class="form-floating mb-3">
-                        <p class="mb-0"><label asp-for="ScheduledClassId" class="control-label"></label></p>
-                        <input asp-for="ScheduledClassId" class="form-control"/>
+                        <p class="mb-0"><label asp-for="Student.LastName" class="control-label"></label></p>
+                        <input asp-for="Student.LastName" class="form-control"/>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <p class="mb-0"><label asp-for="ScheduledClass.Course.CourseName" class="control-label"></label></p>
+                        <input asp-for="ScheduledClass.Course.CourseName" class="form-control" />
                     </div>
                     <div class="form-floating mb-3">
                         <p class="mb-0"><label asp-for="EnrollmentDate" class="control-label"></label></p>
